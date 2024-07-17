@@ -1,28 +1,31 @@
 services:
-  automatic1111:
-    container_name: automatic1111
-    restart: always
-    volumes: 
-      - ./automatic1111/:/home/automatic1111/stable-diffusion-webui/models
-    image: automatic1111-cpu
-    build:
-      context: ./
-      dockerfile: automatic1111.Dockerfile
-    networks:
-      - llm-net
+  # uncomment if you want to use AUTOMATIC1111 as SD backend handler
+  # automatic1111:
+  #   container_name: automatic1111
+  #   restart: always
+  #   volumes: 
+  #     - ./automatic1111/:/home/automatic1111/stable-diffusion-webui/models
+  #   image: automatic1111-cpu
+  #   build:
+  #     context: ./
+  #     dockerfile: automatic1111.Dockerfile
+  #   networks:
+  #     - llm-net
 
-  comfyui:
-    container_name: comfyui
-    restart: always
-    volumes: 
-      - ./comfyui/:/app/comfyui/models
-    image: comfyui
-    build:
-      context: ./
-      dockerfile: comfyUI.Dockerfile
-    networks:
-      - llm-net
+  # uncomment if you want to use ComfyUI as SD backend handler
+  # comfyui:
+  #   container_name: comfyui
+  #   restart: always
+  #   volumes: 
+  #     - ./comfyui/:/app/comfyui/models
+  #   image: comfyui
+  #   build:
+  #     context: ./
+  #     dockerfile: comfyUI.Dockerfile
+  #   networks:
+  #     - llm-net
       
+  # add as many ollama instance as you like
   ollama_1:
     container_name: ollama_1
     restart: always

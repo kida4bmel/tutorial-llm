@@ -21,9 +21,9 @@ docker compose up -d
 ```
 
 ## Monitoring using langfuse
-By default docker compose will not spin up the necessary container (postgres, langfuse and openwebui/pipelines) to start monitoring the usage of open-webui. In order to be able to use this, use the non-default docker compose file [`docker-compose-langfuse.yml`](docker-compose-langfuse.yml) when running the docker compose commands:
+By default docker compose will not spin up the necessary container (postgres, langfuse and openwebui/pipelines) to start monitoring the usage of open-webui. In order to be able to use this, add the additional docker compose file [`docker-compose-langfuse.yml`](docker-compose-langfuse.yml) when running the docker compose commands:
 ```
-docker compose -f docker-compose-langfuse.yml up -d
+docker compose -f docker-compose.yml -f docker-compose-langfuse.yml up -d
 ```
 There are a few manual steps in order to set this up:
 1. Once all containers are running head to https://localhost:3001 where you'll find your brand new langfuse instance

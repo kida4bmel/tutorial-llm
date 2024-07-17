@@ -1,73 +1,4 @@
 services:
-  automatic1111:
-    container_name: automatic1111
-    restart: always
-    volumes: 
-      - ./automatic1111/:/home/automatic1111/stable-diffusion-webui/models
-    image: automatic1111-cpu
-    build:
-      context: ./
-      dockerfile: automatic1111.Dockerfile
-    networks:
-      - llm-net
-
-  comfyui:
-    container_name: comfyui
-    restart: always
-    volumes: 
-      - ./comfyui/:/app/comfyui/models
-    image: comfyui
-    build:
-      context: ./
-      dockerfile: comfyUI.Dockerfile
-    networks:
-      - llm-net
-      
-  ollama_1:
-    container_name: ollama_1
-    restart: always
-    volumes: 
-      - ./ollama/:/root/.ollama
-    image: ollama/ollama
-    networks:
-      - llm-net
-    cpus: 8
-    cpu_shares: 20000
-
-  ollama_2:
-    container_name: ollama_2
-    restart: always
-    volumes: 
-      - ./ollama/:/root/.ollama
-    image: ollama/ollama
-    networks:
-      - llm-net
-    cpus: 8
-    cpu_shares: 20000
-
-  ollama_3:
-    container_name: ollama_3
-    restart: always
-    volumes: 
-      - ./ollama/:/root/.ollama
-    image: ollama/ollama
-    networks:
-      - llm-net
-    cpus: 8
-    cpu_shares: 20000
-
-  webui:
-    container_name: open-webui
-    restart: always
-    volumes: 
-      - ./open-webui:/app/backend/data
-    image: ghcr.io/open-webui/open-webui:main
-    env_file: ./webui.env
-    networks: 
-      - llm-net
-    ports: 
-      - "3000:8080"
-
   pipelines:
     container_name: pipelines
     restart: always
@@ -118,12 +49,6 @@ volumes:
     driver: local
 
 networks:
-  llm-net:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 172.112.0.0/16
-          gateway: 172.112.0.1 
   langfuse-net:
     driver: bridge
     ipam:
