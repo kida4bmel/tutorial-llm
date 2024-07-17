@@ -1,6 +1,6 @@
-## Open WebUI Deployment using Docker compose
+# Open WebUI Deployment using Docker compose
 
-# complete Open WebUI stack with docker compose
+## complete Open WebUI stack with docker compose
 In the provided compose files we imploy a couple of services:
 - of course the Open WebUI container
 - one or more Ollama container
