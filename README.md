@@ -26,6 +26,10 @@ docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -v open-
 ```
 If you don't want to use the .env file, you can add `-e DEFAULT_USER_ROLE=admin -e ENABLE_ADMIN_EXPORT=False` to the docker run command instead of `--env-file [path-to-webui.env]`.
 
+### Getting Started (Docker compose)
+
+We provide a series of Docker compose files for easy deployment of Open-WebUI and Ollama containers and optionally some container stacks for hardware and usage monitoring.   
+You can find them together with a detailed description in [compose](compose/)
 
 ### Pulling models
 There are three ways to pull models in the container.  

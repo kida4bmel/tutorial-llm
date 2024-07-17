@@ -1,0 +1,132 @@
+services:
+  automatic1111:
+    container_name: automatic1111
+    restart: always
+    volumes: 
+      - ./automatic1111/:/home/automatic1111/stable-diffusion-webui/models
+    image: automatic1111-cpu
+    build:
+      context: ./
+      dockerfile: automatic1111.Dockerfile
+    networks:
+      - llm-net
+
+  comfyui:
+    container_name: comfyui
+    restart: always
+    volumes: 
+      - ./comfyui/:/app/comfyui/models
+    image: comfyui
+    build:
+      context: ./
+      dockerfile: comfyUI.Dockerfile
+    networks:
+      - llm-net
+      
+  ollama_1:
+    container_name: ollama_1
+    restart: always
+    volumes: 
+      - ./ollama/:/root/.ollama
+    image: ollama/ollama
+    networks:
+      - llm-net
+    cpus: 8
+    cpu_shares: 20000
+
+  ollama_2:
+    container_name: ollama_2
+    restart: always
+    volumes: 
+      - ./ollama/:/root/.ollama
+    image: ollama/ollama
+    networks:
+      - llm-net
+    cpus: 8
+    cpu_shares: 20000
+
+  ollama_3:
+    container_name: ollama_3
+    restart: always
+    volumes: 
+      - ./ollama/:/root/.ollama
+    image: ollama/ollama
+    networks:
+      - llm-net
+    cpus: 8
+    cpu_shares: 20000
+
+  webui:
+    container_name: open-webui
+    restart: always
+    volumes: 
+      - ./open-webui:/app/backend/data
+    image: ghcr.io/open-webui/open-webui:main
+    env_file: ./webui.env
+    networks: 
+      - llm-net
+    ports: 
+      - "3000:8080"
+
+  pipelines:
+    container_name: pipelines
+    restart: always
+    volumes:
+      - ./pipelines:/app/pipelines
+    image: ghcr.io/open-webui/pipelines:main
+    networks:
+      - llm-net
+      - langfuse-net
+
+  langfuse-db:
+    image: postgres
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 3s
+      timeout: 3s
+      retries: 10
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    volumes:
+      - database_data:/var/lib/postgresql/data
+    networks:
+      - langfuse-net
+
+  langfuse-server:
+    image: langfuse/langfuse:2
+    depends_on:
+      langfuse-db:
+        condition: service_healthy
+    ports:
+      - "3001:3000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@langfuse-db:5432/postgres
+      - NEXTAUTH_SECRET=mysecret
+      - SALT=mysalt
+      - HOSTNAME=0.0.0.0
+      - NEXTAUTH_URL=http://0.0.0.0:3001
+      - TELEMETRY_ENABLED=${TELEMETRY_ENABLED:-true}
+      - LANGFUSE_ENABLE_EXPERIMENTAL_FEATURES=${LANGFUSE_ENABLE_EXPERIMENTAL_FEATURES:-false}
+    networks:
+      - langfuse-net
+
+volumes:
+  database_data:
+    driver: local
+
+networks:
+  llm-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.112.0.0/16
+          gateway: 172.112.0.1 
+  langfuse-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.113.0.0/16
+          gateway: 172.113.0.1 
