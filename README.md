@@ -1,7 +1,8 @@
-<div style="display: flex; justify-content: space-between;align-items: center;">
-<h1>LLM-Tutorial</h1>
-<img src="img/Logo_KIDA.svg" height="200" align="right"> 
-</div>
+
+<img src="img/Logo_KIDA.svg" height="200" align="right"><br><br><br>
+
+# LLM-Tutorial
+
 
 ## Open-WebUI   
 - [Getting started (Docker)](#getting-started-docker)
