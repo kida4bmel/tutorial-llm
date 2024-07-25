@@ -1,5 +1,8 @@
-# LLM-Tutorial
-## Open-WebUI 
+<img src="img/Logo_KIDA.svg" height="200" align="right">
+
+# LLM-Tutorial 
+
+## Open-WebUI   
 - [Getting started (Docker)](#getting-started-docker)
 - [Getting started (Docker compose)](#getting-started-docker-compose)
 - [Pulling Models](#pulling-models)
@@ -58,3 +61,6 @@ PARAMETER num_gpu 0
 PARAMETER num_thread 16
 ```
 Then, click on `Save & Create`. The model can then be selected as a new model from the model dropdown menu in a chat.
+
+# Acknowledgements
+This repository was created within the AI Consultancy Unit of the [KIDA](https://www.kida-bmel.de/) project. Special thanks go out to the **KIDA** project itself, as well as to the **Bundesministerium für Ernährung und Landwirtschaft** ([BMEL](https://www.bmel.de/EN/Home/home_node.html)) and the  **Bundesanstalt für Landwirtschaft und Ernährung** ([BLE](https://www.ble.de/EN/Home/home_node.html;jsessionid=A4031344815BC0EF18CBD4EF1C05FBC0.internet962)) for funding the project.
