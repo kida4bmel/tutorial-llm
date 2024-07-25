@@ -1,5 +1,4 @@
-
-<img src="img/Logo_KIDA.svg" height="200" align="right"><br><br><br>
+<a href="https://kida-bmel.de/"><img src="img/Logo_KIDA.svg" height="200" align="right" /> </a><br><br><br>
 
 # LLM-Tutorial
 
