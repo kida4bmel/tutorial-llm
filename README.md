@@ -9,6 +9,7 @@
 - [Getting started (Docker compose)](#getting-started-docker-compose)
 - [Pulling Models](#pulling-models)
 - [Create a Modelfile](#create-a-modelfile)
+- [Acknowledgements](#acknowledgements)
 ### Getting started (Docker)
 
 To use Ollama and the Open-WebUI, you first have to create docker containers for them.
