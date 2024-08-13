@@ -29,7 +29,7 @@ Run the WebUI docker container with the following command (substitute `[path-to-
 ```
 docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --env-file [path-to-webui.env] --name open-webui_test --restart always ghcr.io/open-webui/open-webui:main
 ```
-If you don't want to use the .env file, you can add `-e DEFAULT_USER_ROLE=admin -e ENABLE_ADMIN_EXPORT=False` to the docker run command instead of `--env-file [path-to-webui.env]`.
+If you don't want to use the .env file, you can add `-e DEFAULT_USER_ROLE=user -e ENABLE_ADMIN_EXPORT=False` to the docker run command instead of `--env-file [path-to-webui.env]`.
 
 ### Getting Started (Docker compose)
 
