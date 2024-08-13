@@ -22,7 +22,7 @@ This starts the ollama container in detached mode without GPU support. The volum
 ##### Open-WebUI
 For Open-WebUI, you can use a `.env` file to store environment variables that will be used in this container. Create a `webui.env` file with the following content:
 ```
-DEFAULT_USER_ROLE=admin
+DEFAULT_USER_ROLE=user
 ENABLE_ADMIN_EXPORT=False
 ```
 Run the WebUI docker container with the following command (substitute `[path-to-webui.env]` with the actual path):
