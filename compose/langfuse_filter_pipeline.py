@@ -20,7 +20,7 @@ from copy import deepcopy
 from utils.pipelines.main import get_last_user_message, get_last_assistant_message
 from pydantic import BaseModel
 from langfuse import Langfuse
-
+import uuid
 
 def obscure_message(input:str)->str:
     return "A"*len(input)
@@ -90,19 +90,29 @@ class Pipeline:
 
         # if user is not admin, obscure message for privacy
         obscure_body = deepcopy(body) if user.get("role", "user")=="admin" else obscure_messages(body)
+
+        if "chat_id" not in body:
+            unique_id = f"SYSTEM MESSAGE {uuid.uuid4()}"
+            body["chat_id"] = unique_id
+            print(f"System message, thus uuid {uuid} was assigned as chat_id!")
+
+        # keep track of total document(s) length for cost calc in outlet
+        self.rag_meta = {"nfiles":0, "totalCharacters":0, "type":None}
+        if "files" in body.keys():
+            self.rag_meta["nfiles"]=len(body["files"])
+            try:
+                self.rag_meta["totalCharacters"] = sum([file_["file"]["meta"]["size"] for file_ in body["files"]])
+            except:
+                self.rag_meta["type"]="collection"
+                self.rag_meta["totalCharacters"] = 0
+
         trace = self.langfuse.trace(
             name=f"filter:{__name__}",
             input=obscure_body,
             user_id=user["id"],
-            metadata={"rag": ("citations" in body.keys()), "options":body.get("options",None), "user_role":user.get("role",None)},
+            metadata={"rag": ("citations" in body.keys()), "rag-input":self.rag_meta["type"], "options":body.get("options",None), "user_role":user.get("role",None)},
             session_id=body["chat_id"],
         )
-
-        # keep track of total document(s) length for cost calc in outlet
-        self.rag_meta = {"nfiles":0, "totalCharacters":0}
-        if "files" in body.keys():
-            self.rag_meta["nfiles"]=len(body["files"])
-            self.rag_meta["totalCharacters"] = sum([file_["file"]["meta"]["size"] for file_ in body["files"]])
 
         generation = trace.generation(
             name=body["chat_id"],
