@@ -60,7 +60,7 @@ ollama_2:::container
 ollama_3:::container
 automatic1111:::container
 
-open-webui[open-webui\n<small>available inside llm-net at http://open-webui:3000</small>]:::container
+open-webui[open-webui\n<small>available inside llm-net at http‎://open-webui:3000</small>]:::container
 ollama_1 --- open-webui
 ollama_2 --- open-webui
 ollama_3 --- open-webui
@@ -74,7 +74,7 @@ pipelines --- open-webui
 
 
 
-langfuse[langfuse\n<small>available inside langfuse-net at http://langfuse-server:3000</small>]:::container
+langfuse[langfuse <small>available inside langfuse-net at http‎://langfuse-server:3000</small>]:::container
 postgres-db:::container
 langfuse---postgres-db
 end
@@ -82,8 +82,8 @@ dockernets:::network
 
 pipelines --- langfuse
 
-user -----|published on http://localhost:3000| open-webui
-user -----|published on http://localhost:3001| langfuse
+user -----|published on http‎://localhost:3000| open-webui
+user -----|published on http‎://localhost:3001| langfuse
 
 end
 body:::empty
