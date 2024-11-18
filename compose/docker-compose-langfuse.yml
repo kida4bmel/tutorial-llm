@@ -1,3 +1,5 @@
+# adjusted version of https://github.com/langfuse/langfuse/blob/main/docker-compose.yml
+
 services:
   pipelines:
     container_name: pipelines
