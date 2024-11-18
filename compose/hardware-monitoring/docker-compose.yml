@@ -7,10 +7,15 @@ services:
       - ./prometheus-data/:/prometheus
     networks:
       - prometheus-net
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--storage.tsdb.retention.time=100y"
     ports:
       - "3003:9090"
     extra_hosts:
       - "host.docker.internal: 172.114.0.1"
+
   grafana:
     container_name: grafana
     image: grafana/grafana-oss
@@ -31,6 +36,7 @@ services:
     restart: unless-stopped
     volumes:
       - '/:/host:ro,rslave'
+
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:latest
     container_name: cadvisor
@@ -44,6 +50,7 @@ services:
       - "8082:8080"
     networks:
       - prometheus-net    
+
 volumes:
   grafana-data:
     driver: local
